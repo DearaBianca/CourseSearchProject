@@ -1,4 +1,4 @@
-# Course Search Project - [NAME-TBD]
+# Course Search Project - [LearnLoop]
 
 ## 1. Introduction
 
@@ -10,15 +10,15 @@ Game-based learning is more than just making games for students to play; it is a
 ### 1.2. Purpose of the Project
 Learning a new subject can be overwhelming at first. Gamification of learning helps motivate students of all ages by transforming abstract concepts into something more concrete and attainable. As students begin the lesson, they know what is expected of them and which tools to use, encouraging them to continue with the lesson.
 
-Our aim is to develop a system that enables students to learn through gamification. Starting from this idea, our team envisioned a platform for everyone who wants to learn, practice, and surpass themselves—a social learning platform named **NAME-TBD**.
+Our aim is to develop a system that enables students to learn through gamification. Starting from this idea, our team envisioned a platform for everyone who wants to learn, practice, and surpass themselves—a social learning platform named **LearnLoop**.
 
 ### 1.3. Problem
 Traditional teaching methods are becoming less effective, as students often find them boring. This leads to a decrease in interest in school and an increase in dropout rates. One effective way to counter this is by fostering encouragement and engagement in the learning process. Encouragement can unlock untapped potential in learners of all ages, especially those who struggle.
 
 With many students relying on eLearning, it’s more important than ever to boost learner motivation through stimulation and engagement.
 
-### 1.4. Our Solution - NAME-TBD
-The goal of our social learning platform, **NAME-TBD**, is to provide a space for individuals to learn and collaborate with others. It includes features such as online courses, interactive learning tools, and networking opportunities to foster community and knowledge sharing. The platform aims to facilitate the process of gaining new skills and knowledge, contributing to personal and professional development.
+### 1.4. Our Solution - LearnLoop
+The goal of our social learning platform, **LearnLoop**, is to provide a space for individuals to learn and collaborate with others. It includes features such as online courses, interactive learning tools, and networking opportunities to foster community and knowledge sharing. The platform aims to facilitate the process of gaining new skills and knowledge, contributing to personal and professional development.
 
 #### Key Features:
 
