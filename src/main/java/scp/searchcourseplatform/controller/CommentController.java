@@ -17,7 +17,7 @@ import java.util.List;
 public class CommentController {
 
     @Autowired
-    private CommentService commentService; // Un serviciu pentru manipularea logicii comentariilor
+    private CommentService commentService;
 
     @PostMapping
     @Operation(summary = "Add a new comment", description = "Add a new comment to a course in Elasticsearch")

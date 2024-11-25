@@ -1,5 +1,6 @@
 package scp.searchcourseplatform.models;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 @Data
@@ -13,7 +14,7 @@ public class Course {
     private String level;
     private String language;
     private String content;
-    private Reviews reviews;
+    private Review reviews;
     private String professor;
     private int numberOfStudents;
 
