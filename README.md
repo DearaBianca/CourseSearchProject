@@ -56,7 +56,7 @@ The project includes a well-defined REST API for managing courses and comments, 
 
 #### POST `/api/courses`
 - **Summary**: Add a new course.
-- **Description**: Creates and indexes a new course in Elasticsearch.
+- **Description**: Creates and indexes a new course.
 - **Request Body**:
   ```json
   {
@@ -75,7 +75,7 @@ The project includes a well-defined REST API for managing courses and comments, 
 
 #### POST `/api/courses`
 - **Summary**: Add a new course.
-- **Description**: Creates and indexes a new course in Elasticsearch.
+- **Description**: Creates and indexes a new course.
 - **Request Body**: JSON object with course details.
 - **Response**:
    - 201 CREATED: The course has been successfully added.
@@ -109,7 +109,7 @@ The project includes a well-defined REST API for managing courses and comments, 
 
 #### POST `/api/comments`
 - **Summary**: Add a new comment.
-- **Description**: Creates and indexes a comment for a course in Elasticsearch.
+- **Description**: Creates and indexes a comment for a course.
 - **Request Body**: JSON object with comment details.
 - **Response**:
    - 201 CREATED: The comment has been successfully added.
