@@ -1,5 +1,7 @@
 # Course Search Project - [LearnLoop]
 
+Team members: Manolache Mihai, Birzaneanu Rares, Purcarus Raluca, Deara Bianca, Zaharia Diana
+
 ## 1. Introduction
 
 ### 1.1. Context
@@ -85,20 +87,21 @@ The project includes a well-defined REST API for managing courses and comments, 
    - 200 OK: Returns course details.
    - 404 NOT FOUND: Course not found.
 
-#### GET `/api/courses/search`
-- **Summary**: Search courses.
-- **Description**: Searches for courses containing a keyword in their name, description, or content.
-- **Query Parameter**:
-   - `keyword` (string): The keyword to search for.
-- **Response**:
-   - 200 OK: List of matching courses.
-
 #### DELETE `/api/courses/{id}`
 - **Summary**: Delete a course by ID.
 - **Description**: Removes a course by its unique ID.
 - **Response**:
    - 204 NO CONTENT: Course deleted.
    - 404 NOT FOUND: Course not found.
+
+#### GET `/api/courses/search`
+- **Summary**: Advanced course search.
+- **Description**: Searches courses with additional filters such as:
+    - `level` (string): e.g., beginner, intermediate, advanced.
+    - `category` (string): e.g., programming, design.
+    - `rating` (float): Minimum course rating.
+- **Response**:
+    - 200 OK: List of courses matching the filters.
 
 ---
 
@@ -125,23 +128,4 @@ The project includes a well-defined REST API for managing courses and comments, 
    - 404 NOT FOUND: Comment not found.
 
 ---
-
-### 2.3. **Advanced Elasticsearch Endpoints**
-
-#### GET `/api/courses/advanced-search`
-- **Summary**: Advanced course search.
-- **Description**: Searches courses with additional filters such as:
-   - `level` (string): e.g., beginner, intermediate, advanced.
-   - `category` (string): e.g., programming, design.
-   - `rating` (float): Minimum course rating.
-- **Response**:
-   - 200 OK: List of courses matching the filters.
-
-#### GET `/api/comments/search`
-- **Summary**: Search comments.
-- **Description**: Searches comments based on keywords or filters like:
-   - `courseId` (string): Filter comments by course ID.
-   - `author` (string): Filter by comment author.
-- **Response**:
-   - 200 OK: List of matching comments.
 
