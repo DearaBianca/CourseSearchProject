@@ -40,3 +40,108 @@ To enhance the user experience and improve the platform's search capabilities, w
 - **Analytics**: Elasticsearch can be used to analyze user behavior on the platform, such as popular search queries and topics of interest, allowing us to refine and improve the platform continuously.
 
 This integration will ensure that users can easily find the content they need, making their learning experience efficient.
+
+### 1.6. Swagger
+- **Documentation**: API documentation and testing interface
+
+---
+
+## 2. REST API Endpoints
+
+The project includes a well-defined REST API for managing courses and comments, with Swagger documentation for seamless integration. Below are the endpoints provided by the API:
+
+### 2.1. **Courses Endpoints**
+
+#### POST `/api/courses`
+- **Summary**: Add a new course.
+- **Description**: Creates and indexes a new course in Elasticsearch.
+- **Request Body**:
+  ```json
+  {
+      "id": "string",
+      "name": "string",
+      "description": "string",
+      "content": "string"
+  }
+  ```
+- **Response**: 201 CREATED: The course has been successfully added.
+
+#### GET  `/api/courses/{id}`
+- **Summary**:  Get a course by ID.
+- **Description**: Retrieves details of a course by its unique ID.
+- **Response**: 200 OK: Returns course details; 404 NOT FOUND: Course not found.
+
+#### POST `/api/courses`
+- **Summary**: Add a new course.
+- **Description**: Creates and indexes a new course in Elasticsearch.
+- **Request Body**: JSON object with course details.
+- **Response**:
+   - 201 CREATED: The course has been successfully added.
+
+#### GET `/api/courses/{id}`
+- **Summary**: Get a course by ID.
+- **Description**: Retrieves details of a course by its unique ID.
+- **Response**:
+   - 200 OK: Returns course details.
+   - 404 NOT FOUND: Course not found.
+
+#### GET `/api/courses/search`
+- **Summary**: Search courses.
+- **Description**: Searches for courses containing a keyword in their name, description, or content.
+- **Query Parameter**:
+   - `keyword` (string): The keyword to search for.
+- **Response**:
+   - 200 OK: List of matching courses.
+
+#### DELETE `/api/courses/{id}`
+- **Summary**: Delete a course by ID.
+- **Description**: Removes a course by its unique ID.
+- **Response**:
+   - 204 NO CONTENT: Course deleted.
+   - 404 NOT FOUND: Course not found.
+
+---
+
+### 2.2. **Comments Endpoints**
+
+#### POST `/api/comments`
+- **Summary**: Add a new comment.
+- **Description**: Creates and indexes a comment for a course in Elasticsearch.
+- **Request Body**: JSON object with comment details.
+- **Response**:
+   - 201 CREATED: The comment has been successfully added.
+
+#### GET `/api/comments/course/{courseId}`
+- **Summary**: Get comments for a course.
+- **Description**: Retrieves all comments associated with a specific course ID.
+- **Response**:
+   - 200 OK: List of comments for the course.
+
+#### DELETE `/api/comments/{id}`
+- **Summary**: Delete a comment by ID.
+- **Description**: Deletes a specific comment using its ID.
+- **Response**:
+   - 204 NO CONTENT: Comment deleted.
+   - 404 NOT FOUND: Comment not found.
+
+---
+
+### 2.3. **Advanced Elasticsearch Endpoints**
+
+#### GET `/api/courses/advanced-search`
+- **Summary**: Advanced course search.
+- **Description**: Searches courses with additional filters such as:
+   - `level` (string): e.g., beginner, intermediate, advanced.
+   - `category` (string): e.g., programming, design.
+   - `rating` (float): Minimum course rating.
+- **Response**:
+   - 200 OK: List of courses matching the filters.
+
+#### GET `/api/comments/search`
+- **Summary**: Search comments.
+- **Description**: Searches comments based on keywords or filters like:
+   - `courseId` (string): Filter comments by course ID.
+   - `author` (string): Filter by comment author.
+- **Response**:
+   - 200 OK: List of matching comments.
+
