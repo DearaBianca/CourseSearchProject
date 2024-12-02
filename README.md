@@ -114,13 +114,13 @@ The project includes a well-defined REST API for managing courses and comments, 
 - **Response**:
    - 201 CREATED: The comment has been successfully added.
 
-#### GET `/api/comments/course/{courseId}`
+#### GET `/api/courses/{courseId}/comments/{courseId}`
 - **Summary**: Get comments for a course.
 - **Description**: Retrieves all comments associated with a specific course ID.
 - **Response**:
    - 200 OK: List of comments for the course.
 
-#### DELETE `/api/comments/{id}`
+#### DELETE `/api/courses/{courseId}/comments/{id}`
 - **Summary**: Delete a comment by ID.
 - **Description**: Deletes a specific comment using its ID.
 - **Response**:
