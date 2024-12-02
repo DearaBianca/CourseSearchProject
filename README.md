@@ -107,7 +107,7 @@ The project includes a well-defined REST API for managing courses and comments, 
 
 ### 2.2. **Comments Endpoints**
 
-#### POST `/api/comments`
+#### POST `/api/courses/{courseId}/comments`
 - **Summary**: Add a new comment.
 - **Description**: Creates and indexes a comment for a course.
 - **Request Body**: JSON object with comment details.
