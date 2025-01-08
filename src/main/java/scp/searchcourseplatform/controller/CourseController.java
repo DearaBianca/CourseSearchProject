@@ -13,6 +13,7 @@ import scp.searchcourseplatform.service.CourseService;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/courses")
 @Tag(name = "Courses", description = "Manage Courses in Elasticsearch")
@@ -27,7 +28,6 @@ public class CourseController {
     @PostMapping
     @Operation(summary = "Add a new course", description = "Add a new course to the Elasticsearch index")
     public ResponseEntity<Course> addCourse(@RequestBody Course course) {
-        System.out.println("entered in addCourse");
         Course savedCourse = courseService.saveCourse(course);
         return new ResponseEntity<>(savedCourse, HttpStatus.CREATED);
     }
@@ -38,6 +38,13 @@ public class CourseController {
         return courseService.getCourseById(id)
                 .map(course -> new ResponseEntity<>(course, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping
+    @Operation(summary = "Get all courses", description = "Retrieve all courses from Elasticsearch")
+    public ResponseEntity<List<Course>> getAllCourses() {
+        List<Course> courses = courseService.getAllCourses();
+        return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
     @GetMapping("/search/{keyword}")

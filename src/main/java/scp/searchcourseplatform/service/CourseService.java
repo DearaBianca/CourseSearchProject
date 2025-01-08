@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import scp.searchcourseplatform.models.Course;
 import scp.searchcourseplatform.repository.CourseRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,14 @@ public class CourseService {
         return courseRepository.findById(id);
     }
 
+    public List<Course> getAllCourses() {
+
+        Iterable<Course> courses = courseRepository.findAll();
+        List<Course> courseList = new ArrayList<>();
+        courses.forEach(courseList::add);
+        return courseList;
+    }
+
     public List<Course> searchCourses(String keyword) {
         return courseRepository.findByContentContaining(keyword);
     }
@@ -30,4 +39,5 @@ public class CourseService {
         courseRepository.deleteById(id);
     }
 }
+
 
