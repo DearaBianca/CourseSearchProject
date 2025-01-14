@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/courses")
 @Tag(name = "Courses", description = "Manage Courses in Elasticsearch")
-public class CourseController {
+public class CommentsController {
 
     @Autowired
     private CourseService courseService;

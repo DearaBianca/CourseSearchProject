@@ -1,33 +1,60 @@
 package scp.searchcourseplatform.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.elasticsearch.core.*;
 import org.springframework.stereotype.Service;
 import scp.searchcourseplatform.models.Course;
-import scp.searchcourseplatform.repository.CourseRepository;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CourseService {
 
-    @Autowired
-    private CourseRepository courseRepository;
+    private final ElasticsearchClient client;
+    private static final String INDEX_NAME = "courses";
 
-    public Course saveCourse(Course course) {
-        return courseRepository.save(course);
+    public CourseService(ElasticsearchClient client) {
+        this.client = client;
     }
 
-    public Optional<Course> getCourseById(String id) {
-        return courseRepository.findById(id);
+    public Course saveCourse(Course course) throws IOException {
+        client.index(i -> i
+                .index(INDEX_NAME)
+                .id(course.getId())
+                .document(course)
+        );
+        return course;
     }
 
-    public List<Course> searchCourses(String keyword) {
-        return courseRepository.findByContentContaining(keyword);
+    public Course getCourseById(String id) throws IOException {
+        GetResponse<Course> response = client.get(g -> g
+                        .index(INDEX_NAME)
+                        .id(id),
+                Course.class
+        );
+        return response.source();
     }
 
-    public void deleteCourse(String id) {
-        courseRepository.deleteById(id);
+    public List<Course> searchCourses(String keyword) throws IOException {
+        var response = client.search(s -> s
+                        .index(INDEX_NAME)
+                        .query(q -> q
+                                .match(m -> m
+                                        .field("content")
+                                        .query(keyword)
+                                )
+                        ),
+                Course.class
+        );
+
+        List<Course> results = new ArrayList<>();
+        response.hits().hits().forEach(hit -> results.add(hit.source()));
+        return results;
+    }
+
+    public void deleteCourse(String id) throws IOException {
+        client.delete(d -> d.index(INDEX_NAME).id(id));
     }
 }
-
