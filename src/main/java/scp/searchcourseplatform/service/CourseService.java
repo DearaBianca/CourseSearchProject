@@ -7,6 +7,8 @@ import scp.searchcourseplatform.repository.CourseRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class CourseService {
@@ -29,5 +31,12 @@ public class CourseService {
     public void deleteCourse(String id) {
         courseRepository.deleteById(id);
     }
+
+    public List<Course> getAllCourses() {
+        return StreamSupport
+                .stream(courseRepository.findAll().spliterator(), false)
+                .collect(Collectors.toList());
+    }
+
 }
 

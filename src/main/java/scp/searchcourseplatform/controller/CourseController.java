@@ -24,6 +24,13 @@ public class CourseController {
     @Autowired
     private CommentService commentService;
 
+    @GetMapping
+    @Operation(summary = "Get all courses", description = "Retrieve all courses from Elasticsearch")
+    public ResponseEntity<List<Course>> getAllCourses() {
+        List<Course> courses = courseService.getAllCourses();
+        return new ResponseEntity<>(courses, HttpStatus.OK);
+    }
+
     @PostMapping
     @Operation(summary = "Add a new course", description = "Add a new course to the Elasticsearch index")
     public ResponseEntity<Course> addCourse(@RequestBody Course course) {
