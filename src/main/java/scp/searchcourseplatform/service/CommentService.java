@@ -19,11 +19,17 @@ public class CommentService {
         this.client = client;
     }
 
-    public void saveComment(Comment comment) throws IOException {
-        client.index(i -> i
+    public Comment saveComment(Comment comment) throws IOException {
+        var response = client.index(i -> i
                 .index(INDEX_NAME)
                 .document(comment)
         );
+
+        // Capture the generated ID from the Elasticsearch response
+        String generatedId = response.id();
+        comment.setId(generatedId);  // Set the generated ID back into the Comment object
+
+        return comment;
     }
 
     public Comment getCommentById(String id) throws IOException {
