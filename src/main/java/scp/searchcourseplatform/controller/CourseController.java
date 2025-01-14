@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import scp.searchcourseplatform.models.Comment;
 import scp.searchcourseplatform.models.Course;
-import scp.searchcourseplatform.service.CommentService;
 import scp.searchcourseplatform.service.CourseService;
 
 import java.io.IOException;
@@ -22,8 +20,7 @@ public class CourseController {
     @Autowired
     private CourseService courseService;
 
-    @Autowired
-    private CommentService commentService;
+
 
     @PostMapping
     @Operation(summary = "Add a new course", description = "Add a new course to the Elasticsearch index")
@@ -55,24 +52,5 @@ public class CourseController {
 
     // todo:< Get all courses
 
-    @PostMapping("/{courseId}/comments")
-    @Operation(summary = "Add a new comment", description = "Add a new comment to a course in Elasticsearch")
-    public ResponseEntity<Comment> addComment(@PathVariable("courseId") String courseId, @RequestBody Comment comment) {
-        comment.setCourseId(courseId);
-        Comment savedComment = commentService.saveComment(comment);
-        return new ResponseEntity<>(savedComment, HttpStatus.CREATED);
-    }
 
-    @GetMapping("/{courseId}/comments")
-    @Operation(summary = "Get comments for a course", description = "Retrieve all comments for a specific course")
-    public ResponseEntity<List<Comment>> getCommentsByCourse(@PathVariable("courseId") String courseId) {
-        return new ResponseEntity<>(commentService.getCommentsByCourseId(courseId), HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{courseId}/comments/{commentId}")
-    @Operation(summary = "Delete a comment by ID", description = "Delete a specific comment using its ID")
-    public ResponseEntity<Void> deleteComment(@PathVariable("courseId") String courseId, @PathVariable("commentId") String commentId) {
-        commentService.deleteComment(commentId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
 }

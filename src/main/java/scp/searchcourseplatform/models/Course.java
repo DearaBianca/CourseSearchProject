@@ -10,7 +10,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 //@Document(indexName = "courses")
 public class Course {
-    @Id
+
     private String id;
     private String name;
     private String description;
