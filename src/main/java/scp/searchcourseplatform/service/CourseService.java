@@ -20,11 +20,14 @@ public class CourseService {
     }
 
     public Course saveCourse(Course course) throws IOException {
-        client.index(i -> i
+        var response = client.index(i -> i
                 .index(INDEX_NAME)
-                .id(course.getId())
                 .document(course)
         );
+
+        String generatedId = response.id();
+        course.setId(generatedId);
+
         return course;
     }
 
@@ -35,6 +38,17 @@ public class CourseService {
                 Course.class
         );
         return response.source();
+    }
+
+    public List<Course> getAllCourses() throws IOException {
+        var response = client.search(s -> s
+                        .index(INDEX_NAME)
+                        .query(q -> q.matchAll(m -> m)),
+                Course.class);
+
+        List<Course> courses = new ArrayList<>();
+        response.hits().hits().forEach(hit -> courses.add(hit.source()));
+        return courses;
     }
 
     public List<Course> searchCourses(String keyword) throws IOException {

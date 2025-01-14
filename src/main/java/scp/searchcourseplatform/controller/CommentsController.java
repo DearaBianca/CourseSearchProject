@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/courses")
+@RequestMapping("/api/comments")
 @Tag(name = "Courses", description = "Manage Courses in Elasticsearch")
 public class CommentsController {
 
@@ -23,19 +23,26 @@ public class CommentsController {
     private CommentService commentService;
 
 
-    @PostMapping("/{courseId}/comments")
+    @PostMapping("/{courseId}")
     @Operation(summary = "Add a new comment", description = "Add a new comment to a course in Elasticsearch")
     public ResponseEntity<String> addComment(@RequestBody Comment comment) throws IOException {
         commentService.saveComment(comment);
         return ResponseEntity.ok("Comment added successfully");
     }
 
-    @GetMapping("/{courseId}/comments")
+    @GetMapping("/{courseId}")
     @Operation(summary = "Get comments for a course", description = "Retrieve all comments for a specific course")
     public ResponseEntity<List<Comment>> getCommentsByCourseId(@PathVariable String courseId) throws IOException {
         return ResponseEntity.ok(commentService.getCommentsByCourseId(courseId));
     }
-    @DeleteMapping("/{courseId}/comments/{commentId}")
+
+    @GetMapping
+    @Operation(summary = "Get all comments", description = "Retrieve all comments ")
+    public ResponseEntity<List<Comment>> getAllComments() throws IOException {
+        return ResponseEntity.ok(commentService.getAllComments());
+    }
+
+    @DeleteMapping("/{courseId}/{commentId}")
     @Operation(summary = "Delete a comment by ID", description = "Delete a specific comment using its ID")
     public ResponseEntity<String> deleteComment(@PathVariable String id) throws IOException {
         commentService.deleteComment(id);

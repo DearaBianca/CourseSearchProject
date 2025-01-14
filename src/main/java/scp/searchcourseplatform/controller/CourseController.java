@@ -21,7 +21,6 @@ public class CourseController {
     private CourseService courseService;
 
 
-
     @PostMapping
     @Operation(summary = "Add a new course", description = "Add a new course to the Elasticsearch index")
     public ResponseEntity<Course> addCourse(@RequestBody Course course) throws IOException {
@@ -35,6 +34,12 @@ public class CourseController {
     public ResponseEntity<Course> getCourseById(@PathVariable("id") String id)  throws IOException{
         return ResponseEntity.ok(courseService.getCourseById(id));
 
+    }
+
+    @GetMapping
+    @Operation(summary = "Get all courses", description = "Retrieve all course details ")
+    public ResponseEntity<List<Course>> getAllCourses() throws IOException {
+        return ResponseEntity.ok(courseService.getAllCourses());
     }
 
     @GetMapping("/search/{keyword}")

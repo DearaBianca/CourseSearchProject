@@ -13,7 +13,7 @@ import java.util.List;
 public class CommentService {
 
     private final ElasticsearchClient client;
-    private static final String INDEX_NAME = "course_comments";
+    private static final String INDEX_NAME = "comments";
 
     public CommentService(ElasticsearchClient client) {
         this.client = client;
@@ -22,7 +22,6 @@ public class CommentService {
     public void saveComment(Comment comment) throws IOException {
         client.index(i -> i
                 .index(INDEX_NAME)
-                .id(comment.getId())
                 .document(comment)
         );
     }
@@ -34,6 +33,17 @@ public class CommentService {
                 Comment.class
         );
         return response.source();
+    }
+
+    public List<Comment> getAllComments() throws IOException {
+        var response = client.search(s -> s
+                        .index(INDEX_NAME)
+                        .query(q -> q.matchAll(m -> m)),
+                Comment.class);
+
+        List<Comment> comments = new ArrayList<>();
+        response.hits().hits().forEach(hit -> comments.add(hit.source()));
+        return comments;
     }
 
     public List<Comment> getCommentsByCourseId(String courseId) throws IOException {
