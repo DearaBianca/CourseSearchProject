@@ -1,28 +1,58 @@
 package scp.searchcourseplatform.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.elasticsearch.core.*;
 import scp.searchcourseplatform.models.Comment;
-import scp.searchcourseplatform.repository.CommentRepository;
+import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CommentService {
 
-    @Autowired
-    private CommentRepository commentRepository;
+    private final ElasticsearchClient client;
+    private static final String INDEX_NAME = "course_comments";
 
-    public Comment saveComment(Comment comment) {
-        return commentRepository.save(comment);
+    public CommentService(ElasticsearchClient client) {
+        this.client = client;
     }
 
-    public List<Comment> getCommentsByCourseId(String courseId) {
-        return commentRepository.findByCourseId(courseId);
+    public void saveComment(Comment comment) throws IOException {
+        client.index(i -> i
+                .index(INDEX_NAME)
+                .id(comment.getId())
+                .document(comment)
+        );
     }
 
-    public void deleteComment(String id) {
-        commentRepository.deleteById(id);
+    public Comment getCommentById(String id) throws IOException {
+        GetResponse<Comment> response = client.get(g -> g
+                        .index(INDEX_NAME)
+                        .id(id),
+                Comment.class
+        );
+        return response.source();
+    }
+
+    public List<Comment> getCommentsByCourseId(String courseId) throws IOException {
+        var response = client.search(s -> s
+                        .index(INDEX_NAME)
+                        .query(q -> q
+                                .match(m -> m
+                                        .field("courseId")
+                                        .query(courseId)
+                                )
+                        ),
+                Comment.class);
+
+        List<Comment> results = new ArrayList<>();
+        response.hits().hits().forEach(hit -> results.add(hit.source()));
+        return results;
+    }
+
+    public void deleteComment(String id) throws IOException {
+        client.delete(d -> d.index(INDEX_NAME).id(id));
     }
 }
-
