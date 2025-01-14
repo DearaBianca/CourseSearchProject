@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Document(indexName = "courses")
+//@Document(indexName = "courses")
 public class Course {
     @Id
     private String id;
