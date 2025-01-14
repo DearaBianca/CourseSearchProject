@@ -1,13 +1,13 @@
 package scp.searchcourseplatform.models;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
+
 
 import java.util.List;
 
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 //@Document(indexName = "courses")
 public class Course {
 
@@ -21,6 +21,5 @@ public class Course {
     private Review reviews;
     private String professor;
     private int numberOfStudents;
-    private List<Comment> comments;
-
+//    private List<Comment> comments;
 }
